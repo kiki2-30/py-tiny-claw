@@ -8,7 +8,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 from .provider import LLMProvider
-from .schema import Message, Role, ToolResult
+from .schema import DEFAULT_SYSTEM_PROMPT, Message, Role, ToolResult
 from .context.session import Session
 from .context.compactor import Compactor
 from .context.plan import PlanManager
@@ -17,9 +17,6 @@ from .observability.trace import Tracer
 from .tools import ToolRegistry
 
 logger = logging.getLogger(__name__)
-
-# 默认 System Prompt（engine / a2a / plan 共用基底）
-DEFAULT_SYSTEM_PROMPT = "You are an expert coding assistant with tool access."
 
 
 class AgentEngine:

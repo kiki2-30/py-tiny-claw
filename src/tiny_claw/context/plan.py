@@ -9,7 +9,7 @@ import logging
 from pathlib import Path
 from typing import Optional
 
-from ..engine import DEFAULT_SYSTEM_PROMPT
+from ..schema import DEFAULT_SYSTEM_PROMPT
 
 logger = logging.getLogger(__name__)
 

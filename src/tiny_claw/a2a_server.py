@@ -17,7 +17,8 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from pathlib import Path
 from typing import Optional
 
-from .engine import AgentEngine, DEFAULT_SYSTEM_PROMPT
+from .engine import AgentEngine
+from .schema import DEFAULT_SYSTEM_PROMPT
 from .schema import Message, Role
 from .context.session import Session
 from .tools import BashTool, EditFileTool, ReadFileTool, ToolRegistry, WriteFileTool

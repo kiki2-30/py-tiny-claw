@@ -7,6 +7,10 @@ from enum import Enum
 from typing import Any, Optional
 
 
+# 默认 System Prompt（engine / a2a / plan 共用基底）
+DEFAULT_SYSTEM_PROMPT = "You are an expert coding assistant with tool access."
+
+
 # ============================================================
 # 消息角色：system / user / assistant
 # ============================================================
