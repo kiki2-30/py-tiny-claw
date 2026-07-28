@@ -1,0 +1,5 @@
+Hello, go-tiny-claw!
+
+这是一个测试文件，用于验证 ReadFile 工具是否能正常工作。
+
+DeepSeek 是性价比很高的大模型，适合 Agent 场景。

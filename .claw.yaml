@@ -1,0 +1,14 @@
+# .claw.yaml —— tiny-claw 配置文件
+model: deepseek-chat
+enable_thinking: true
+plan_mode: true
+
+compactor:
+  max_chars: 20000
+  retain_last: 6
+
+tools:
+  read_file: true
+  write_file: true
+  bash: true
+  edit_file: true
