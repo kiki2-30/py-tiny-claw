@@ -14,6 +14,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 from tiny_claw import AgentEngine, DeepSeekProvider, ReadFileTool, ToolRegistry
+from tiny_claw.context.session import Session
+from tiny_claw.schema import Message, Role
 
 logging.basicConfig(
     level=logging.INFO,
@@ -31,6 +33,8 @@ registry.register(ReadFileTool(work_dir))
 
 engine = AgentEngine(brain, registry, work_dir)
 
-engine.run("请读取 hello.txt 的内容，并用一句话向我总结。")
+session = Session("ch05_demo", work_dir)
+session.history.append(Message(role=Role.USER, content="请读取 hello.txt 的内容，并用一句话向我总结。"))
+engine.run(session)
 
 print("\n✨ ReadFile 工具测试完成！")

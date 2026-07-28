@@ -19,6 +19,8 @@ from tiny_claw import (
     EditFileTool,
     ToolRegistry,
 )
+from tiny_claw.context.session import Session
+from tiny_claw.schema import Message, Role
 
 logging.basicConfig(
     level=logging.INFO,
@@ -39,7 +41,8 @@ registry.register(EditFileTool(work_dir))
 
 engine = AgentEngine(brain, registry, work_dir, enable_thinking=True)
 
-engine.run("""
+session = Session("ch07_demo", work_dir)
+session.history.append(Message(role=Role.USER, content="""
 当前目录下有一个 service.py 文件。
 请把 "# TODO: 增加鉴权逻辑" 下面的 if 语句替换为：
     if user is None:
@@ -50,6 +53,7 @@ engine.run("""
     if user is None:
         print("Welcome, guest!")
         return
-""")
+"""))
+engine.run(session)
 
 print("\n✨ EditFile + 可插拔 DiffEngine 测试完成！")

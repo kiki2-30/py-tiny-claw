@@ -14,6 +14,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 from tiny_claw import AgentEngine, DeepSeekProvider, MockRegistry
+from tiny_claw.context.session import Session
+from tiny_claw.schema import Message, Role
 
 logging.basicConfig(
     level=logging.INFO,
@@ -28,6 +30,8 @@ toolbox = MockRegistry()
 
 engine = AgentEngine(brain, toolbox, str(Path.cwd()), enable_thinking=True)
 
-engine.run("用中文回答：Python 和 Go 各适合什么场景？一句话总结。")
+session = Session("ch04_demo", str(Path.cwd()))
+session.history.append(Message(role=Role.USER, content="用中文回答：Python 和 Go 各适合什么场景？一句话总结。"))
+engine.run(session)
 
 print("\n✨ DeepSeek API 调用成功！")

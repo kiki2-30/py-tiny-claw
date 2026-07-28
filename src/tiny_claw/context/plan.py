@@ -9,9 +9,11 @@ import logging
 from pathlib import Path
 from typing import Optional
 
+from ..engine import DEFAULT_SYSTEM_PROMPT
+
 logger = logging.getLogger(__name__)
 
-PLAN_SYSTEM_PROMPT = """You are an expert coding assistant with tool access.
+PLAN_SYSTEM_PROMPT = DEFAULT_SYSTEM_PROMPT + """
 
 CRITICAL: This is a multi-step task in Plan Mode.
 1. FIRST: use write_file to create TODO.md with a checklist of steps

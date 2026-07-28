@@ -21,6 +21,8 @@ from tiny_claw import (
     ToolRegistry,
     WriteFileTool,
 )
+from tiny_claw.context.session import Session
+from tiny_claw.schema import Message, Role
 
 logging.basicConfig(
     level=logging.INFO,
@@ -40,11 +42,13 @@ registry.register(BashTool(work_dir))
 
 engine = AgentEngine(brain, registry, work_dir, enable_thinking=True)
 
-engine.run("""
+session = Session("ch06_demo", work_dir)
+session.history.append(Message(role=Role.USER, content="""
 请帮我做三件事：
 1. 用 bash 查看当前 Python 版本 (python3 --version)
 2. 写一个 hello_claw.py，打印 "Hello from go-tiny-claw!"
 3. 用 bash 运行这个文件，确认它能正常输出
-""")
+"""))
+engine.run(session)
 
 print("\n✨ 多工具协同完成！")

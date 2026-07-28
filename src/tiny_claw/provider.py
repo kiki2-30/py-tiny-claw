@@ -23,7 +23,7 @@ class LLMProvider(Protocol):
 # DeepSeek Provider —— 对接 DeepSeek API（OpenAI 兼容）
 # 环境变量: DEEPSEEK_API_KEY
 # ============================================================
-class DeepSeekProvider:
+class DeepSeekProvider(LLMProvider):
     def __init__(self, model: str = "deepseek-chat") -> None:
         api_key = os.getenv("DEEPSEEK_API_KEY")
         if not api_key:

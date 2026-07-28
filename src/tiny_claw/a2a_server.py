@@ -17,7 +17,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from pathlib import Path
 from typing import Optional
 
-from .engine import AgentEngine
+from .engine import AgentEngine, DEFAULT_SYSTEM_PROMPT
 from .schema import Message, Role
 from .context.session import Session
 from .tools import BashTool, EditFileTool, ReadFileTool, ToolRegistry, WriteFileTool
@@ -128,7 +128,7 @@ class A2AHandler(BaseHTTPRequestHandler):
         session = Session(id=session_id, work_dir=self.work_dir)
 
         system_prompt = (
-            "You are an expert coding assistant with tool access. "
+            DEFAULT_SYSTEM_PROMPT + " "
             "Complete the user's task step by step, using tools when needed. "
             "Return a clear final answer."
         )

@@ -75,6 +75,10 @@ class SubagentTool:
 
         # 独立引擎副本，多 Subagent 并发时不竞态
         sub = self._engine.clone_with(self._read_only)
+        # 强制关闭 Plan 模式：Subagent 有自己的 SUBAGENT_SYSTEM，
+        # 不能被 Plan 模式的 PLAN_SYSTEM_PROMPT 覆盖
+        sub.plan_mode = False
+        sub.plan = None
         sub.run(session, max_turns=10)
 
         # 提取最后一轮 AI 回复作为摘要

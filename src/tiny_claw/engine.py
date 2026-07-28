@@ -18,6 +18,9 @@ from .tools import ToolRegistry
 
 logger = logging.getLogger(__name__)
 
+# 默认 System Prompt（engine / a2a / plan 共用基底）
+DEFAULT_SYSTEM_PROMPT = "You are an expert coding assistant with tool access."
+
 
 class AgentEngine:
 
@@ -55,7 +58,7 @@ class AgentEngine:
         if not session.history or session.history[0].role != Role.SYSTEM:
             session.history.insert(0, Message(
                 role=Role.SYSTEM,
-                content="You are an expert coding assistant with tool access.",
+                content=DEFAULT_SYSTEM_PROMPT,
             ))
 
         # Plan 模式：替换 System Prompt
@@ -93,7 +96,7 @@ class AgentEngine:
                 acc["think"] += time.perf_counter() - t0
                 tracer.end()
                 if resp.content:
-                    print(f"🧠 [思考]: {resp.content}")
+                    logger.info("🧠 [思考]: %s", resp.content[:200])
                     history.append(resp)
 
             # Phase 2: Action
@@ -105,7 +108,7 @@ class AgentEngine:
             history.append(resp)
 
             if resp.content:
-                print(f"🤖 [回复]: {resp.content}")
+                logger.info("🤖 [回复]: %s", resp.content[:200])
 
             # 无 ToolCall → 任务结束
             if not resp.tool_calls:

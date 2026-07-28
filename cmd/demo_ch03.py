@@ -11,6 +11,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 from tiny_claw import AgentEngine, MockProvider, MockRegistry
+from tiny_claw.context.session import Session
+from tiny_claw.schema import Message, Role
 
 logging.basicConfig(
     level=logging.INFO,
@@ -26,6 +28,8 @@ toolbox = MockRegistry()
 # enable_thinking=True —— 开启 Thinking Phase
 engine = AgentEngine(brain, toolbox, str(Path.cwd()), enable_thinking=True)
 
-engine.run("帮我检查当前目录的文件")
+session = Session("ch03_demo", str(Path.cwd()))
+session.history.append(Message(role=Role.USER, content="帮我检查当前目录的文件"))
+engine.run(session)
 
 print("\n✨ 双阶段推理跑通！")
